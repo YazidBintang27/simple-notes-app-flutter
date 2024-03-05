@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DataSource {
-  List<String> dataTitle = [];
-  List<String> dataNote = [];
+  List<Map<String, dynamic>> dataList = [
+    {'title': '', 'note': ''}
+  ];
 }

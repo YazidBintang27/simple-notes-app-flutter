@@ -15,11 +15,11 @@ class AddDataPage extends StatelessWidget {
           actions: [
             IconButton(
               icon: const Icon(
-                Icons.send,
+                Icons.note_add_outlined,
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.pop(context, data);
+                Get.back(result: data);
               },
             )
           ],

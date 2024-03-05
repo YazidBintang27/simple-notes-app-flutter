@@ -2,6 +2,7 @@ import 'package:basic_notes_app/add_data_page.dart';
 import 'package:basic_notes_app/data_source.dart';
 import 'package:basic_notes_app/detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainPage extends StatefulWidget {
@@ -28,10 +29,9 @@ class _MainPageState extends State<MainPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final coba = await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddDataPage()));
+            final result = await Get.to(const AddDataPage());
             setState(() {
-              dataSource.dataList.add(coba);
+              dataSource.dataList.add(result);
             });
           },
           backgroundColor: Colors.orange.shade300,
@@ -65,13 +65,12 @@ class _MainPageState extends State<MainPage> {
                       itemCount: dataSource.dataList.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailPage(
-                                          data: dataSource.dataList[index],
-                                        )));
+                          onTap: () async {
+                            final result = await Get.to(
+                                DetailPage(data: dataSource.dataList[index]));
+                            setState(() {
+                              dataSource.dataList[index] = result;
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(12),
@@ -92,7 +91,12 @@ class _MainPageState extends State<MainPage> {
                                               fontWeight: FontWeight.w700),
                                         ),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              setState(() {
+                                                dataSource.dataList
+                                                    .removeAt(index);
+                                              });
+                                            },
                                             icon: Icon(
                                               Icons.delete,
                                               color: Colors.red.shade400,

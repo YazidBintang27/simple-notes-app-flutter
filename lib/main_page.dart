@@ -34,9 +34,9 @@ class _MainPageState extends State<MainPage> {
               dataSource.dataList.add(result);
             });
           },
-          backgroundColor: Colors.orange.shade300,
+          backgroundColor: Colors.blue.shade400,
           child: const Icon(
-            Icons.add,
+            Icons.edit_note_rounded,
             color: Colors.white,
           ),
         ),
@@ -65,59 +65,71 @@ class _MainPageState extends State<MainPage> {
                       itemCount: dataSource.dataList.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () async {
-                            final result = await Get.to(
-                                DetailPage(data: dataSource.dataList[index]));
-                            setState(() {
-                              dataSource.dataList[index] = result;
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          dataSource.dataList[index]['title'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                dataSource.dataList
-                                                    .removeAt(index);
-                                              });
-                                            },
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: Colors.red.shade400,
-                                            ))
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Text(
+                            onTap: () async {
+                              final result = await Get.to(
+                                  DetailPage(data: dataSource.dataList[index]));
+                              setState(() {
+                                dataSource.dataList[index] = result;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Color.fromARGB(100, 33, 33, 33),
+                                        blurRadius: 6.0,
+                                        offset: Offset(0.0, 2.0))
+                                  ],
+                                  color: Colors.white),
+                              margin: const EdgeInsets.all(4),
+                              padding:
+                                  const EdgeInsets.only(left: 16, right: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    dataSource.dataList[index]['title'],
+                                    style: GoogleFonts.inter(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  SizedBox(
+                                    height: 70,
+                                    child: Text(
                                       dataSource.dataList[index]['note'],
                                       style: GoogleFonts.inter(
-                                          fontSize: 12,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w500),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            dataSource.dataList.removeAt(index);
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        )),
+                                  )
+                                ],
                               ),
-                            ),
-                          ),
-                        );
+                            ));
                       }))
             ],
           ),

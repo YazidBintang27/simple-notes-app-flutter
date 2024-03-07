@@ -117,11 +117,42 @@ class _MainPageState extends State<MainPage> {
                                   Align(
                                     alignment: Alignment.center,
                                     child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            dataSource.dataList.removeAt(index);
-                                          });
-                                        },
+                                        onPressed: () => showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                                  title: Text(
+                                                    "Delete note?",
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  content: Text(
+                                                    "This will delete your note permanently.",
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        child: Text("Cancel")),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            dataSource.dataList
+                                                                .removeAt(
+                                                                    index);
+                                                          });
+                                                          Get.back();
+                                                        },
+                                                        child: Text("Delete"))
+                                                  ],
+                                                )),
                                         icon: const Icon(
                                           Icons.delete,
                                           color: Colors.red,

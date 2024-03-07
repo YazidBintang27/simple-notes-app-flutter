@@ -30,7 +30,7 @@ class AddDataPage extends StatelessWidget {
           margin: const EdgeInsets.only(top: 16, right: 20, left: 20),
           child: Column(
             children: [
-              TextField(git 
+              TextField( 
                 maxLength: 30,
                 maxLines: 1,
                 onChanged: (value) => data['title'] = value,

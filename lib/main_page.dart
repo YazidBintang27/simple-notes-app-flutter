@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final result = await Get.to(const AddDataPage());
+            final result = await Get.to(() => const AddDataPage());
             setState(() {
               dataSource.dataList.add(result);
             });
@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                             onTap: () async {
-                              final result = await Get.to(
+                              final result = await Get.to(() =>
                                   DetailPage(data: dataSource.dataList[index]));
                               setState(() {
                                 dataSource.dataList[index] = result;
